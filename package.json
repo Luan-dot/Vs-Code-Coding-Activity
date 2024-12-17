@@ -1,0 +1,89 @@
+{
+  "name": "commit-history-tracker",
+  "displayName": "commit-history-tracker",
+  "description": "Automated commit history tracking for coding activity",
+  "version": "0.0.1",
+  "type": "commonjs",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onCommand:commit-history-tracker.startTracking"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "commit-history-tracker.startTracking",
+        "title": "Start Commit History Tracking"
+      },
+      {
+        "command": "commit-history-tracker.stopTracking",
+        "title": "Stop Commit History Tracking"
+      },
+      {
+        "command": "commit-history-tracker.showReport",
+        "title": "Show Commit History Report"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Commit History Tracker",
+      "properties": {
+        "commitHistoryTracker.enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable or disable commit history tracking."
+        },
+        "commitHistoryTracker.interval": {
+          "type": "number",
+          "default": 5,
+          "description": "Time interval (in minutes) for tracking changes."
+        },
+        "commitHistoryTracker.excludePatterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "List of file patterns to exclude from tracking."
+        },
+        "commitHistoryTracker.blockOnSensitiveData": {
+          "type": "boolean",
+          "default": true,
+          "description": "Block commits if sensitive data is detected."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "package": "node esbuild.js --production",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.96.0",
+    "@typescript-eslint/eslint-plugin": "^8.17.0",
+    "@typescript-eslint/parser": "^8.17.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "esbuild": "^0.24.0",
+    "eslint": "^9.16.0",
+    "minimatch": "^9.0.1",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "@octokit/rest": "^20.0.0",
+    "commit-history-tracker": "file:",
+    "minimatch": "^9.0.1",
+    "simple-git": "^3.0.0"
+  }
+}
